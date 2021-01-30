@@ -6,13 +6,13 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import externalGlobals from "rollup-plugin-external-globals";
 import { terser } from "rollup-plugin-terser";
 export default {
-	input: 'src/ARnft-babylonjs.ts', // our source file
+	input: 'src/ARnftBabylonjs.ts', // our source file
 	output: [
 		{
 			//umd
 			format: 'umd',
-			name: 'ARNFT-babylonjs',
-			file: 'dist/ARnft-babylonjs.js',
+			name: 'ARnftBabylonjs',
+			file: 'dist/ARnftBabylonjs.js',
 			sourcemap: true,
 			globals: {
 				// babylonjs: 'babylonjs',
