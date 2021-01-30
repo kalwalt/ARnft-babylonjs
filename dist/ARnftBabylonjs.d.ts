@@ -1,2 +1,2 @@
-import "./NFTRootBJS";
-import "./SceneRendererBJS";
+export * from "./NFTRootBJS";
+export * from "./SceneRendererBJS";
