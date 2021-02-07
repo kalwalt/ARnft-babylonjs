@@ -18,6 +18,14 @@ export abstract class NFTNodeBJS implements IMediaNode  {
 
     private _deltaAccuracy: number = 10;
 
+    public get root(): AbstractMesh {
+        return this._root;
+    }
+
+    /*public set root(value: AbstractMesh) {} {
+        this._root = value;
+    }*/
+
     public get deltaAccuracy(): number {
         return this._deltaAccuracy;
     }

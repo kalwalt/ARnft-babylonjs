@@ -1,3 +1,4 @@
+import { AbstractMesh } from "@babylonjs/core/Meshes/abstractMesh";
 import { IMediaNode } from "./media-node/IMediaNode";
 export declare abstract class NFTNodeBJS implements IMediaNode {
     protected world: any;
@@ -7,6 +8,7 @@ export declare abstract class NFTNodeBJS implements IMediaNode {
     private _frameDrops;
     private _root;
     private _deltaAccuracy;
+    get root(): AbstractMesh;
     get deltaAccuracy(): number;
     set deltaAccuracy(value: number);
     get interpolationFactor(): number;

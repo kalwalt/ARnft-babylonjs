@@ -20,6 +20,9 @@ export class NFTNodeBJS {
             ]
         };
     }
+    get root() {
+        return this._root;
+    }
     get deltaAccuracy() {
         return this._deltaAccuracy;
     }
