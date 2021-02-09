@@ -14,6 +14,7 @@ export class NFTImageBJS extends NFTNodeBJS {
         const mat = new StandardMaterial("plane", scene);
         mat.diffuseTexture = new Texture(imageUrl, scene);
         plane.material = mat;
+        console.log(super.root);
         super.root.addChild(plane);
     }
 }
