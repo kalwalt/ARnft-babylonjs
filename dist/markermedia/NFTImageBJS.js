@@ -7,7 +7,7 @@ export class NFTImageBJS extends NFTNodeBJS {
         super();
     }
     addNFTImage(imageUrl, width, height, scene) {
-        let plane = MeshBuilder.CreatePlane("imagePlane", { width, height }, scene);
+        let plane = MeshBuilder.CreatePlane("imagePlane", { width: width, height: height }, scene);
         const mat = new StandardMaterial("plane", scene);
         mat.diffuseTexture = new Texture(imageUrl, scene);
         plane.material = mat;
