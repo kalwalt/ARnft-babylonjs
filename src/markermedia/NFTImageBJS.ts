@@ -6,10 +6,10 @@ import { StandardMaterial } from "@babylonjs/core/Materials/standardMaterial";
 import { Texture } from "@babylonjs/core/Materials/Textures";
 
 export class NFTImageBJS extends NFTNodeBJS {
-    public node: AbstractMesh;
-    constructor() {
+    private imageRoot: AbstractMesh;
+    constructor(root: AbstractMesh) {
         super()
-        //this.node = super.root
+        this.imageRoot = root;
     }
 
     public addNFTImage(imageUrl: string, width: number, height: number, scene: Scene) {
@@ -17,6 +17,6 @@ export class NFTImageBJS extends NFTNodeBJS {
         const mat = new StandardMaterial("plane", scene);
         mat.diffuseTexture = new Texture(imageUrl, scene);
         plane.material = mat;
-        this.node.addChild(plane);
+        this.imageRoot.addChild(plane);
     }
 }
