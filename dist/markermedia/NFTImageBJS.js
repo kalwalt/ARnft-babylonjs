@@ -5,7 +5,6 @@ import { Texture } from "@babylonjs/core/Materials/Textures";
 export class NFTImageBJS extends NFTNodeBJS {
     constructor() {
         super();
-        this.node = super.root;
     }
     addNFTImage(imageUrl, width, height, scene) {
         let plane = MeshBuilder.CreatePlane("imagePlane", { width: width, height: height }, scene);

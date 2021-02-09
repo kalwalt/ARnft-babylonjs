@@ -9,7 +9,7 @@ export class NFTImageBJS extends NFTNodeBJS {
     public node: AbstractMesh;
     constructor() {
         super()
-        this.node = super.root
+        //this.node = super.root
     }
 
     public addNFTImage(imageUrl: string, width: number, height: number, scene: Scene) {
