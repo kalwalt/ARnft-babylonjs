@@ -1,39 +1,40 @@
-import { Camera } from "@babylonjs/core/Cameras/camera";
-import { Engine } from "@babylonjs/core/Engines/engine";
-import { ShadowGenerator } from "@babylonjs/core/Lights/Shadows/shadowGenerator";
-import { Color3, Color4, Vector3 } from "@babylonjs/core/Maths/math";
-import { Scene } from "@babylonjs/core/scene";
-import { IShadowLight, DirectionalLight, HemisphericLight } from "@babylonjs/core/Lights";
+import {Camera} from "@babylonjs/core/Cameras/camera";
+import {Engine} from "@babylonjs/core/Engines/engine";
+import {ShadowGenerator} from "@babylonjs/core/Lights/Shadows/shadowGenerator";
+import {Color3, Color4, Vector3} from "@babylonjs/core/Maths/math";
+import {Scene} from "@babylonjs/core/scene";
+import {IShadowLight, DirectionalLight, HemisphericLight} from "@babylonjs/core/Lights";
 
-export class SceneRendererBJS {
+export default class SceneRendererBJS {
 
-    public canvas_draw: HTMLCanvasElement;
+    public canvas_draw : HTMLCanvasElement;
 
+    private engine : Engine;
 
-    private engine: Engine;
-
-    private _scene: Scene;
+    private _scene : Scene;
+    private static globalScene: Scene;
 
     public get scene(): Scene {
         return this._scene;
     }
 
     // exlude these below
-    public camera: Camera;
-    public light: IShadowLight;
-    public shadowGenerator: ShadowGenerator;
-    
-    constructor ( canvasElement : HTMLCanvasElement, scene?:Scene ){
+    public camera : Camera;
+    public light : IShadowLight;
+    public shadowGenerator : ShadowGenerator;
+
+    constructor(canvasElement : HTMLCanvasElement, scene? : Scene) {
         this.canvas_draw = canvasElement;
 
         this._scene = scene;
     }
 
-    public initialize(): Promise<boolean> {
+    public initialize(): Promise < boolean > {
 
         console.log("Scene3DRendererBabylon");
-        if ( this._scene )
+        if (this._scene) 
             return Promise.resolve(true);
+        
 
         return new Promise<boolean>(async (resolve, reject) => {
 
@@ -44,6 +45,7 @@ export class SceneRendererBJS {
             });
 
             this._scene = new Scene(this.engine);
+            SceneRendererBJS.globalScene = this._scene;
             this._scene.clearColor = new Color4(0, 0, 0, 0);
             this._scene.ambientColor = new Color3(1, 1, 1);
             this._scene.useRightHandedSystem = true;
@@ -73,5 +75,9 @@ export class SceneRendererBJS {
 
     public update(): void {
         this.scene.render();
+    }
+
+    static getGlobalScene(): Scene {
+        return SceneRendererBJS.globalScene;
     }
 }
