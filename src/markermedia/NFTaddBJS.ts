@@ -1,7 +1,7 @@
 import { Scene } from "@babylonjs/core/scene";
 import { AbstractMesh } from "@babylonjs/core/Meshes/abstractMesh";
 import { Mesh } from "@babylonjs/core/Meshes/mesh";
-import { Matrix, Vector3 } from "@babylonjs/core/Maths/math";
+import { Matrix, Quaternion, Vector3 } from "@babylonjs/core/Maths/math";
 import { Utils } from "../utils/Utils";
 import SceneRendererBJS from "../SceneRendererBJS";
 
@@ -39,6 +39,9 @@ export default class NFTaddBJS {
             //root.matrixAutoUpdate = false;
             const interpolatedMatrix = Utils.interpolate(ev.detail.matrixGL_RH);
             const matrix: Matrix = Matrix.FromArray(Utils.getArrayMatrix(interpolatedMatrix));
+            let rotMatrix: Matrix = matrix.getRotationMatrix();
+            let rotation: Quaternion = new Quaternion().fromRotationMatrix(rotMatrix);
+            root.rotation = rotation.toEulerAngles();
             let pos = Vector3.TransformCoordinates(new Vector3(0, 0, 0), matrix);
             root.setAbsolutePosition(pos);
         });
