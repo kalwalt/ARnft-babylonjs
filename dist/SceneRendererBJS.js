@@ -4,9 +4,10 @@ import { ShadowGenerator } from "@babylonjs/core/Lights/Shadows/shadowGenerator"
 import { Color3, Color4, Vector3 } from "@babylonjs/core/Maths/math";
 import { Scene } from "@babylonjs/core/scene";
 import { DirectionalLight, HemisphericLight } from "@babylonjs/core/Lights";
-export class SceneRendererBJS {
-    constructor(canvasElement, scene) {
+export default class SceneRendererBJS {
+    constructor(canvasElement, uuid, scene) {
         this.canvas_draw = canvasElement;
+        this.uuid = uuid;
         this._scene = scene;
     }
     get scene() {
@@ -15,13 +16,14 @@ export class SceneRendererBJS {
     initialize() {
         console.log("Scene3DRendererBabylon");
         if (this._scene)
-            return Promise.resolve(true);
+            return Promise.resolve(this);
         return new Promise(async (resolve, reject) => {
             this.engine = new Engine(this.canvas_draw, true, {
                 preserveDrawingBuffer: true,
                 stencil: true
             });
             this._scene = new Scene(this.engine);
+            SceneRendererBJS.globalScene = this._scene;
             this._scene.clearColor = new Color4(0, 0, 0, 0);
             this._scene.ambientColor = new Color3(1, 1, 1);
             this._scene.useRightHandedSystem = true;
@@ -36,11 +38,14 @@ export class SceneRendererBJS {
             this.camera.attachControl(this.canvas_draw, true);
             var light2 = new HemisphericLight("HemiLight", new Vector3(0, 1, 0), this._scene);
             light2.intensity = 0.3;
-            resolve(true);
+            resolve(this);
         });
     }
     update() {
         this.scene.render();
+    }
+    static getGlobalScene() {
+        return SceneRendererBJS.globalScene;
     }
 }
 //# sourceMappingURL=SceneRendererBJS.js.map

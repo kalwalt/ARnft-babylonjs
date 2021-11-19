@@ -12,6 +12,7 @@ export default class SceneRendererBJS {
     private engine : Engine;
 
     private _scene : Scene;
+    private uuid: string;
     private static globalScene: Scene;
 
     public get scene(): Scene {
@@ -23,20 +24,21 @@ export default class SceneRendererBJS {
     public light : IShadowLight;
     public shadowGenerator : ShadowGenerator;
 
-    constructor(canvasElement : HTMLCanvasElement, scene? : Scene) {
+    constructor(canvasElement : HTMLCanvasElement, uuid: string, scene? : Scene) {
         this.canvas_draw = canvasElement;
+        this.uuid = uuid;
 
         this._scene = scene;
     }
 
-    public initialize(): Promise < boolean > {
+    public initialize(): Promise < object > {
 
         console.log("Scene3DRendererBabylon");
         if (this._scene) 
-            return Promise.resolve(true);
+            return Promise.resolve(this);
         
 
-        return new Promise<boolean>(async (resolve, reject) => {
+        return new Promise<object>(async (resolve, reject) => {
 
 
             this.engine = new Engine(this.canvas_draw, true, {
@@ -68,8 +70,7 @@ export default class SceneRendererBJS {
             // lights should come out.  allow the user to place lights
             var light2 = new HemisphericLight("HemiLight", new Vector3(0, 1, 0), this._scene);
             light2.intensity = 0.3;
-            resolve(true);
-
+            resolve(this);
         });
     }
 
